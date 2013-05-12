@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Environment;
 
 public class TempStorageHelper {
 	private String tempDirectory;
@@ -19,7 +20,7 @@ public class TempStorageHelper {
 	}
 	
 	public TempStorageHelper(String tempDirectory) {
-		this.tempDirectory = tempDirectory;
+		this.tempDirectory = Environment.getExternalStorageDirectory() + "/" + tempDirectory;
 		
 		init();
 	}
@@ -35,12 +36,17 @@ public class TempStorageHelper {
 		AssetManager assetManager = context.getAssets();
 		InputStream in = null;
 		OutputStream out = null;
+		String fileName = path;
+		
+		if(path.lastIndexOf("/") > -1) {
+			fileName = path.substring(path.lastIndexOf("/"));
+		}
 		
 		try {
 	        in = assetManager.open(path);
-	        out = new FileOutputStream(tempDirectory + "/" + path.substring(path.lastIndexOf("/")));
+	        out = new FileOutputStream(tempDirectory + "/" + fileName);
 	        copyFile(in, out);
-	        fileList.add(path.substring(path.lastIndexOf("/")));
+	        fileList.add(fileName);
 		} catch(IOException e) {
 			e.printStackTrace();
 			throw e;
@@ -53,7 +59,11 @@ public class TempStorageHelper {
 		}
 	}
 	
-	public void removeTempfile() {
+	public String getTempFilePath(String fileName) {
+		return tempDirectory + "/" + fileName;
+	}
+	
+	public void removeTempfiles() {
 		for(int i=0; i<fileList.size(); i++) {
 			File f = new File(tempDirectory + "/" + fileList.get(i));
 			f.delete();
