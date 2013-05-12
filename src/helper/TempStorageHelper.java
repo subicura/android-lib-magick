@@ -16,7 +16,7 @@ public class TempStorageHelper {
 	private ArrayList<String> fileList = new ArrayList<String>();
 	
 	public TempStorageHelper() {
-		this("temp");
+		this(".temp");
 	}
 	
 	public TempStorageHelper(String tempDirectory) {
