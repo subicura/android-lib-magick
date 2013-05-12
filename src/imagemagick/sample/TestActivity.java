@@ -1,7 +1,9 @@
-package teste.ndk;
+package imagemagick.sample;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
+import teste.ndk.R;
 
 import fakeawt.Rectangle;
 
@@ -11,7 +13,7 @@ import magick.MagickImage;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TesteNdkActivity extends Activity {
+public class TestActivity extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
